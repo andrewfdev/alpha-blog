@@ -19,7 +19,7 @@ before_action :require_same_user, only: [:edit, :update, :delete]
 
   def create
     @article = Article.new(article_params)
-    @article.user = 
+    @article.user = current_user
     if @article.save
       flash[:notice] = "Article was created successfully."
       redirect_to @article
@@ -55,7 +55,7 @@ before_action :require_same_user, only: [:edit, :update, :delete]
   end
 
   def require_same_user
-      if current_user != @article.user
+      if current_user != @article.user && !current_user.admin?
         flash[:alert] = "You can only edit or delete your own article"
         redirect_to @article
       end
