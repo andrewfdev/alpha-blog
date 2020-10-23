@@ -18,7 +18,7 @@ before_action :require_same_user, only: [:edit, :update, :delete]
   end
 
   def create
-    byebug
+    
     @article = Article.new(article_params)
     @article.user = current_user
     if @article.save
